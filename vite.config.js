@@ -5,10 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
 
-  // Set base to '/' for root domain deployment on Hostinger.
-  // If you deploy to a subdirectory e.g. yourdomain.com/dental/
-  // change this to base: '/dental/'
-  base: '/',
+  // Set base to './' for relative asset loading on Hostinger (works on any domain or subdirectory)
+  base: './',
 
   build: {
     outDir: 'dist',
