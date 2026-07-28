@@ -6,7 +6,7 @@ import {
 import { doctors } from '../data/doctors';
 import '../styles/Doctors.css';
 
-export default function Doctors({ setCurrentPage }) {
+export default function Doctors({ setCurrentPage, compact = false }) {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
 

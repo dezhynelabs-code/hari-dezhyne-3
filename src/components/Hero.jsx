@@ -171,7 +171,7 @@ export default function Hero({ setCurrentPage }) {
                 src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=960&fit=crop&auto=format&q=80"
                 alt="Smiling dentist examining a patient inside a bright, modern dental clinic"
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
               />
             </div>
 

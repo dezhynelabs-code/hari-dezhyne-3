@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  FaTooth, FaTeeth, FaTeethOpen, FaSyringe, FaArrowRight,
+  FaTooth, FaTeeth, FaTeethOpen, FaSyringe, FaArrowRight, FaChevronDown,
 } from 'react-icons/fa';
 import { GiTooth } from 'react-icons/gi';
 import { MdOutlineHealthAndSafety } from 'react-icons/md';
@@ -17,7 +17,7 @@ const iconMap = {
   MdOutlineWavingHand: <MdOutlineHealthAndSafety />,
 };
 
-export default function Treatments({ compact, setCurrentPage }) {
+export default function Treatments({ compact = false, setCurrentPage }) {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [faqActive, setFaqActive] = useState(null);

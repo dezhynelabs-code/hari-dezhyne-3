@@ -10,7 +10,7 @@ const HIGHLIGHTS = [
   { icon: <FaCheckCircle />,  text: 'Advanced Technology' },
 ];
 
-export default function About({ setCurrentPage }) {
+export default function About({ setCurrentPage, compact = false }) {
   return (
     <section id="about" className="about-section">
       <div className="container">
