@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import {
-  FaCalendarAlt, FaClock, FaPhone, FaEnvelope,
+  FaCalendarAlt, FaClock, FaPhone, FaEnvelope, FaUser,
   FaCheckCircle, FaExclamationCircle, FaSpinner,
+  FaChevronDown, FaTooth, FaUserMd,
 } from 'react-icons/fa';
 import { MdEmergency } from 'react-icons/md';
 import '../styles/AppointmentForm.css';
@@ -21,6 +22,12 @@ const DOCTOR_OPTIONS = [
   'Dr. Meera Raj',
 ];
 
+const TIME_OPTIONS = [
+  '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+  '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM',
+  '06:00 PM', '07:00 PM',
+];
+
 const INITIAL_FORM = {
   fullName: '', phone: '', email: '',
   treatment: '', doctor: '', date: '', time: '', message: '',
@@ -32,17 +39,17 @@ function validate(form) {
   const errors = { ...INITIAL_ERRORS };
   let valid = true;
 
-  if (!form.fullName.trim()) { errors.fullName = 'Full name is required.'; valid = false; }
+  if (!form.fullName.trim())  { errors.fullName  = 'Full name is required.';       valid = false; }
   if (!form.phone.trim() || !/^\+?[\d\s\-]{7,15}$/.test(form.phone)) {
     errors.phone = 'Enter a valid phone number.'; valid = false;
   }
   if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
     errors.email = 'Enter a valid email address.'; valid = false;
   }
-  if (!form.treatment)  { errors.treatment = 'Please select a treatment.'; valid = false; }
-  if (!form.doctor)     { errors.doctor    = 'Please select a doctor.';    valid = false; }
-  if (!form.date)       { errors.date      = 'Please select a date.';      valid = false; }
-  if (!form.time)       { errors.time      = 'Please select a time.';      valid = false; }
+  if (!form.treatment) { errors.treatment = 'Please select a treatment.'; valid = false; }
+  if (!form.doctor)    { errors.doctor    = 'Please select a doctor.';    valid = false; }
+  if (!form.date)      { errors.date      = 'Please select a date.';      valid = false; }
+  if (!form.time)      { errors.time      = 'Please select a time.';      valid = false; }
 
   return { errors, valid };
 }
@@ -65,7 +72,6 @@ export default function AppointmentForm() {
     if (!valid) { setErrors(newErrors); return; }
 
     setLoading(true);
-    // Simulate API call
     await new Promise((r) => setTimeout(r, 1500));
     setLoading(false);
     setSuccess(true);
@@ -87,7 +93,8 @@ export default function AppointmentForm() {
     <section id="appointment" className="appointment" aria-label="Book an appointment">
       <div className="container">
         <div className="appointment-grid">
-          {/* Left */}
+
+          {/* ── Left info panel ── */}
           <div className="appointment-info animate-fadeInLeft">
             <div className="section-badge">Book a Visit</div>
             <h2 className="section-title">Book Your Dental Appointment</h2>
@@ -109,39 +116,39 @@ export default function AppointmentForm() {
             </div>
           </div>
 
-          {/* Right – Form */}
+          {/* ── Right – Form card ── */}
           <div className="appointment-form-card animate-fadeInRight">
             {success ? (
               <div className="form-success" role="alert" aria-live="polite">
-                <div className="success-icon" aria-hidden="true">
-                  <FaCheckCircle />
-                </div>
+                <div className="success-icon" aria-hidden="true"><FaCheckCircle /></div>
                 <h3>Appointment Requested!</h3>
                 <p>Thank you! Our team will contact you shortly to confirm your appointment.</p>
-                <button
-                  className="btn-primary"
-                  onClick={() => setSuccess(false)}
-                  aria-label="Book another appointment"
-                >
+                <button className="btn-primary" onClick={() => setSuccess(false)}>
                   Book Another Appointment
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate aria-label="Appointment form">
+
+                <div className="form-section-label">Personal Information</div>
                 <div className="form-grid">
+
                   {/* Full Name */}
                   <div className="form-group">
                     <label htmlFor="fullName">
                       Full Name <span aria-hidden="true">*</span>
                     </label>
-                    <input
-                      id="fullName" name="fullName" type="text"
-                      className={`form-control${errors.fullName ? ' error' : ''}`}
-                      placeholder="John Doe"
-                      value={form.fullName} onChange={handleChange}
-                      aria-describedby={errors.fullName ? 'fullName-error' : undefined}
-                      aria-invalid={!!errors.fullName}
-                    />
+                    <div className={`input-icon-wrap${errors.fullName ? ' error' : ''}`}>
+                      <span className="field-icon" aria-hidden="true"><FaUser /></span>
+                      <input
+                        id="fullName" name="fullName" type="text"
+                        className="form-control"
+                        placeholder="John Doe"
+                        value={form.fullName} onChange={handleChange}
+                        aria-describedby={errors.fullName ? 'fullName-error' : undefined}
+                        aria-invalid={!!errors.fullName}
+                      />
+                    </div>
                     {errors.fullName && (
                       <span className="error-msg" id="fullName-error" role="alert">
                         <FaExclamationCircle aria-hidden="true" /> {errors.fullName}
@@ -154,14 +161,17 @@ export default function AppointmentForm() {
                     <label htmlFor="phone">
                       Phone Number <span aria-hidden="true">*</span>
                     </label>
-                    <input
-                      id="phone" name="phone" type="tel"
-                      className={`form-control${errors.phone ? ' error' : ''}`}
-                      placeholder="+91 98765 43210"
-                      value={form.phone} onChange={handleChange}
-                      aria-describedby={errors.phone ? 'phone-error' : undefined}
-                      aria-invalid={!!errors.phone}
-                    />
+                    <div className={`input-icon-wrap${errors.phone ? ' error' : ''}`}>
+                      <span className="field-icon" aria-hidden="true"><FaPhone /></span>
+                      <input
+                        id="phone" name="phone" type="tel"
+                        className="form-control"
+                        placeholder="+91 98765 43210"
+                        value={form.phone} onChange={handleChange}
+                        aria-describedby={errors.phone ? 'phone-error' : undefined}
+                        aria-invalid={!!errors.phone}
+                      />
+                    </div>
                     {errors.phone && (
                       <span className="error-msg" id="phone-error" role="alert">
                         <FaExclamationCircle aria-hidden="true" /> {errors.phone}
@@ -174,37 +184,50 @@ export default function AppointmentForm() {
                     <label htmlFor="email">
                       Email Address <span aria-hidden="true">*</span>
                     </label>
-                    <input
-                      id="email" name="email" type="email"
-                      className={`form-control${errors.email ? ' error' : ''}`}
-                      placeholder="john@example.com"
-                      value={form.email} onChange={handleChange}
-                      aria-describedby={errors.email ? 'email-error' : undefined}
-                      aria-invalid={!!errors.email}
-                    />
+                    <div className={`input-icon-wrap${errors.email ? ' error' : ''}`}>
+                      <span className="field-icon" aria-hidden="true"><FaEnvelope /></span>
+                      <input
+                        id="email" name="email" type="email"
+                        className="form-control"
+                        placeholder="john@example.com"
+                        value={form.email} onChange={handleChange}
+                        aria-describedby={errors.email ? 'email-error' : undefined}
+                        aria-invalid={!!errors.email}
+                      />
+                    </div>
                     {errors.email && (
                       <span className="error-msg" id="email-error" role="alert">
                         <FaExclamationCircle aria-hidden="true" /> {errors.email}
                       </span>
                     )}
                   </div>
+                </div>
+
+                <div className="form-section-label" style={{ marginTop: '20px' }}>
+                  Appointment Details
+                </div>
+                <div className="form-grid">
 
                   {/* Treatment */}
                   <div className="form-group">
                     <label htmlFor="treatment">
                       Select Treatment <span aria-hidden="true">*</span>
                     </label>
-                    <select
-                      id="treatment" name="treatment"
-                      className={`form-control${errors.treatment ? ' error' : ''}`}
-                      value={form.treatment} onChange={handleChange}
-                      aria-invalid={!!errors.treatment}
-                    >
-                      <option value="">Choose treatment…</option>
-                      {TREATMENT_OPTIONS.map((t) => (
-                        <option key={t} value={t}>{t}</option>
-                      ))}
-                    </select>
+                    <div className={`input-icon-wrap select-wrap${errors.treatment ? ' error' : ''}`}>
+                      <span className="field-icon" aria-hidden="true"><FaTooth /></span>
+                      <select
+                        id="treatment" name="treatment"
+                        className="form-control"
+                        value={form.treatment} onChange={handleChange}
+                        aria-invalid={!!errors.treatment}
+                      >
+                        <option value="">Choose treatment…</option>
+                        {TREATMENT_OPTIONS.map((t) => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
+                      <span className="select-chevron" aria-hidden="true"><FaChevronDown /></span>
+                    </div>
                     {errors.treatment && (
                       <span className="error-msg" role="alert">
                         <FaExclamationCircle aria-hidden="true" /> {errors.treatment}
@@ -217,17 +240,21 @@ export default function AppointmentForm() {
                     <label htmlFor="doctor">
                       Select Doctor <span aria-hidden="true">*</span>
                     </label>
-                    <select
-                      id="doctor" name="doctor"
-                      className={`form-control${errors.doctor ? ' error' : ''}`}
-                      value={form.doctor} onChange={handleChange}
-                      aria-invalid={!!errors.doctor}
-                    >
-                      <option value="">Choose doctor…</option>
-                      {DOCTOR_OPTIONS.map((d) => (
-                        <option key={d} value={d}>{d}</option>
-                      ))}
-                    </select>
+                    <div className={`input-icon-wrap select-wrap${errors.doctor ? ' error' : ''}`}>
+                      <span className="field-icon" aria-hidden="true"><FaUserMd /></span>
+                      <select
+                        id="doctor" name="doctor"
+                        className="form-control"
+                        value={form.doctor} onChange={handleChange}
+                        aria-invalid={!!errors.doctor}
+                      >
+                        <option value="">Choose doctor…</option>
+                        {DOCTOR_OPTIONS.map((d) => (
+                          <option key={d} value={d}>{d}</option>
+                        ))}
+                      </select>
+                      <span className="select-chevron" aria-hidden="true"><FaChevronDown /></span>
+                    </div>
                     {errors.doctor && (
                       <span className="error-msg" role="alert">
                         <FaExclamationCircle aria-hidden="true" /> {errors.doctor}
@@ -240,13 +267,16 @@ export default function AppointmentForm() {
                     <label htmlFor="date">
                       Preferred Date <span aria-hidden="true">*</span>
                     </label>
-                    <input
-                      id="date" name="date" type="date"
-                      className={`form-control${errors.date ? ' error' : ''}`}
-                      value={form.date} onChange={handleChange}
-                      min={minDate}
-                      aria-invalid={!!errors.date}
-                    />
+                    <div className={`input-icon-wrap select-wrap${errors.date ? ' error' : ''}`}>
+                      <span className="field-icon" aria-hidden="true"><FaCalendarAlt /></span>
+                      <input
+                        id="date" name="date" type="date"
+                        className="form-control"
+                        value={form.date} onChange={handleChange}
+                        min={minDate}
+                        aria-invalid={!!errors.date}
+                      />
+                    </div>
                     {errors.date && (
                       <span className="error-msg" role="alert">
                         <FaExclamationCircle aria-hidden="true" /> {errors.date}
@@ -259,19 +289,21 @@ export default function AppointmentForm() {
                     <label htmlFor="time">
                       Preferred Time <span aria-hidden="true">*</span>
                     </label>
-                    <select
-                      id="time" name="time"
-                      className={`form-control${errors.time ? ' error' : ''}`}
-                      value={form.time} onChange={handleChange}
-                      aria-invalid={!!errors.time}
-                    >
-                      <option value="">Choose time…</option>
-                      {['09:00 AM','10:00 AM','11:00 AM','12:00 PM',
-                        '02:00 PM','03:00 PM','04:00 PM','05:00 PM',
-                        '06:00 PM','07:00 PM'].map((t) => (
-                        <option key={t} value={t}>{t}</option>
-                      ))}
-                    </select>
+                    <div className={`input-icon-wrap select-wrap${errors.time ? ' error' : ''}`}>
+                      <span className="field-icon" aria-hidden="true"><FaClock /></span>
+                      <select
+                        id="time" name="time"
+                        className="form-control"
+                        value={form.time} onChange={handleChange}
+                        aria-invalid={!!errors.time}
+                      >
+                        <option value="">Choose time…</option>
+                        {TIME_OPTIONS.map((t) => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
+                      <span className="select-chevron" aria-hidden="true"><FaChevronDown /></span>
+                    </div>
                     {errors.time && (
                       <span className="error-msg" role="alert">
                         <FaExclamationCircle aria-hidden="true" /> {errors.time}
@@ -281,14 +313,17 @@ export default function AppointmentForm() {
 
                   {/* Message */}
                   <div className="form-group full">
-                    <label htmlFor="message">Message (Optional)</label>
-                    <textarea
-                      id="message" name="message"
-                      className="form-control"
-                      placeholder="Describe your dental concern or any special requirements…"
-                      value={form.message} onChange={handleChange}
-                      rows={4}
-                    />
+                    <label htmlFor="message">Message <span className="optional-tag">(Optional)</span></label>
+                    <div className="input-icon-wrap textarea-wrap">
+                      <span className="field-icon textarea-icon" aria-hidden="true">💬</span>
+                      <textarea
+                        id="message" name="message"
+                        className="form-control"
+                        placeholder="Describe your dental concern or any special requirements…"
+                        value={form.message} onChange={handleChange}
+                        rows={3}
+                      />
+                    </div>
                   </div>
                 </div>
 

@@ -1,7 +1,7 @@
-/* ===== APPOINTMENT FORM ===== */
+/* ===== APPOINTMENT SECTION ===== */
 .appointment {
   padding: 96px 0;
-  background: linear-gradient(135deg, var(--light-blue) 0%, #d6eaff 100%);
+  background: linear-gradient(135deg, #eef6ff 0%, #dceeff 60%, #e8f0ff 100%);
   position: relative;
   overflow: hidden;
 }
@@ -9,79 +9,127 @@
 .appointment::before {
   content: '';
   position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(22,119,255,0.1) 0%, transparent 70%);
+  top: -120px;
+  right: -120px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(22,119,255,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.appointment::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: -80px;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(22,119,255,0.06) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
 
 .appointment-grid {
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: 56px;
   align-items: start;
   position: relative;
   z-index: 1;
 }
 
-/* Left info */
-.appointment-info .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); }
-.appointment-info .section-subtitle { max-width: 100%; margin-bottom: 32px; }
+/* ── Left info panel ── */
+.appointment-info .section-title    { font-size: clamp(1.5rem, 3vw, 2rem); }
+.appointment-info .section-subtitle { max-width: 100%; }
 
 .clinic-details {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .clinic-detail-item {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 12px rgba(22,119,255,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clinic-detail-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(22,119,255,0.12);
 }
 
 .detail-icon {
   width: 40px;
   height: 40px;
-  background: var(--white);
-  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary), var(--dark-blue));
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary);
+  color: white;
   font-size: 1rem;
   flex-shrink: 0;
-  box-shadow: var(--shadow-sm);
 }
 
 .detail-content strong {
   display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--dark-blue);
   margin-bottom: 1px;
 }
 
 .detail-content span {
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   color: var(--text);
 }
 
-/* Form */
+/* ── Form card ── */
 .appointment-form-card {
-  background: var(--white);
-  border-radius: var(--radius-xl);
-  padding: 40px;
-  box-shadow: var(--shadow-lg);
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 40px;
+  box-shadow: 0 8px 48px rgba(22,119,255,0.12), 0 2px 12px rgba(0,0,0,0.04);
+  border: 1px solid rgba(22,119,255,0.08);
 }
 
+/* Section dividers inside form */
+.form-section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(22,119,255,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-section-label::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 14px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* ── Form grid ── */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  gap: 16px;
+  margin-bottom: 0;
 }
 
 .form-group {
@@ -95,74 +143,176 @@
 }
 
 .form-group label {
-  font-size: 0.83rem;
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
-.form-group label span {
-  color: var(--error);
-}
-
-.form-control {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1.5px solid #e2e8f0;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  color: var(--text-dark);
-  background: var(--bg-light);
-  transition: var(--transition);
-  outline: none;
-  appearance: none;
-}
-
-.form-control:focus {
-  border-color: var(--primary);
-  background: var(--white);
-  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.1);
-}
-
-.form-control.error {
-  border-color: var(--error);
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-}
-
-.error-msg {
-  font-size: 0.75rem;
-  color: var(--error);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dark-blue);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-textarea.form-control {
-  resize: vertical;
-  min-height: 100px;
+.form-group label span[aria-hidden] {
+  color: #ef4444;
 }
 
+.optional-tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-left: 4px;
+}
+
+/* ══════════════════════════════════
+   INPUT ICON WRAPPER
+══════════════════════════════════ */
+.input-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #f7f9ff;
+  border: 1.5px solid #dde6f7;
+  border-radius: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.input-icon-wrap:focus-within {
+  border-color: var(--primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.12);
+}
+
+.input-icon-wrap.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Left icon bubble */
+.field-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 100%;
+  min-height: 44px;
+  flex-shrink: 0;
+  color: var(--primary);
+  font-size: 0.9rem;
+  border-right: 1.5px solid #dde6f7;
+  background: rgba(22,119,255,0.05);
+  border-radius: 8px 0 0 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.input-icon-wrap:focus-within .field-icon {
+  background: rgba(22,119,255,0.1);
+  color: var(--primary);
+  border-right-color: rgba(22,119,255,0.2);
+}
+
+/* The actual input / select inside the wrapper */
+.input-icon-wrap .form-control {
+  flex: 1;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  background: transparent;
+  padding: 11px 14px;
+  font-size: 0.88rem;
+  color: var(--text-dark);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  box-shadow: none;
+}
+
+.input-icon-wrap .form-control:focus {
+  box-shadow: none;
+  border-color: transparent;
+  background: transparent;
+}
+
+/* ── Custom select chevron ── */
+.select-wrap {
+  position: relative;
+}
+
+.select-chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  font-size: 0.65rem;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+/* Nudge the select's text away from the chevron */
+.select-wrap .form-control {
+  padding-right: 34px;
+}
+
+/* Style the date picker to push picker icon out of the way */
+input[type="date"].form-control {
+  padding-right: 34px;
+}
+
+/* ── Textarea variant ── */
+.textarea-wrap {
+  align-items: flex-start;
+}
+
+.textarea-wrap .field-icon,
+.textarea-icon {
+  min-height: 44px;
+  padding-top: 12px;
+  align-items: flex-start;
+  font-size: 1rem;
+}
+
+.input-icon-wrap .form-control[rows] {
+  border-radius: 0 8px 8px 0;
+  resize: vertical;
+  min-height: 88px;
+}
+
+/* ── Error message ── */
+.error-msg {
+  font-size: 0.74rem;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 2px;
+}
+
+/* ── Submit button ── */
 .form-submit-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, var(--primary), var(--dark-blue));
+  background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%);
   color: white;
   font-size: 1rem;
   font-weight: 700;
-  border-radius: var(--radius-md);
+  font-family: 'Poppins', sans-serif;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 6px 24px rgba(22, 119, 255, 0.4);
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 24px rgba(22, 119, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 6px;
+  margin-top: 22px;
+  letter-spacing: 0.3px;
 }
 
-.form-submit-btn:hover {
+.form-submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(22, 119, 255, 0.5);
+  box-shadow: 0 12px 36px rgba(22, 119, 255, 0.45);
 }
 
 .form-submit-btn:disabled {
@@ -171,7 +321,15 @@ textarea.form-control {
   transform: none;
 }
 
-/* Success Message */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+/* ── Success screen ── */
 .form-success {
   text-align: center;
   padding: 48px 24px;
@@ -180,7 +338,7 @@ textarea.form-control {
 .success-icon {
   width: 72px;
   height: 72px;
-  background: linear-gradient(135deg, var(--success), #16a34a);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -202,12 +360,13 @@ textarea.form-control {
   margin-bottom: 24px;
 }
 
-@media (max-width: 900px) {
+/* ── Responsive ── */
+@media (max-width: 960px) {
   .appointment-grid { grid-template-columns: 1fr; gap: 40px; }
-  .appointment { padding: 72px 0; }
+  .appointment      { padding: 72px 0; }
 }
 
-@media (max-width: 600px) {
-  .form-grid { grid-template-columns: 1fr; }
-  .appointment-form-card { padding: 24px; }
+@media (max-width: 640px) {
+  .form-grid                { grid-template-columns: 1fr; }
+  .appointment-form-card    { padding: 24px 20px; }
 }
