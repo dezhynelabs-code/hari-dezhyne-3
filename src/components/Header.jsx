@@ -32,11 +32,6 @@ const NAV_LINKS = [
     ],
   },
   {
-    label: 'Teams',
-    page: 'teams',
-    icon: <FaUserMd />,
-  },
-  {
     label: 'Contact',
     page: 'contact',
     icon: <FaEnvelope />,

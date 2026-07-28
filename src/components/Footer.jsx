@@ -10,7 +10,6 @@ const QUICK_LINKS = [
   { label: 'Home',    page: 'home' },
   { label: 'About',   page: 'about' },
   { label: 'Service', page: 'service' },
-  { label: 'Teams',   page: 'teams' },
   { label: 'Contact', page: 'contact' },
 ];
 
