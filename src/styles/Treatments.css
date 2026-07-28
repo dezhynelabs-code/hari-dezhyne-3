@@ -1,0 +1,110 @@
+/* ===== TREATMENTS ===== */
+.treatments {
+  padding: 96px 0;
+  background: var(--white);
+}
+
+.treatments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.treatment-card {
+  background: var(--white);
+  border: 1.5px solid rgba(22, 119, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.treatment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--dark-blue));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.treatment-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.treatment-card:hover::before {
+  transform: scaleX(1);
+}
+
+.treatment-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--light-blue);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+  transition: var(--transition);
+}
+
+.treatment-card:hover .treatment-icon {
+  background: var(--primary);
+  color: var(--white);
+  transform: scale(1.08);
+}
+
+.treatment-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin-bottom: 10px;
+}
+
+.treatment-card p {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.treatment-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: var(--transition);
+}
+
+.treatment-link svg {
+  transition: transform 0.3s ease;
+}
+
+.treatment-card:hover .treatment-link {
+  gap: 10px;
+}
+
+.treatment-card:hover .treatment-link svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 960px) {
+  .treatments-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .treatments-grid { grid-template-columns: 1fr; }
+  .treatments { padding: 72px 0; }
+}

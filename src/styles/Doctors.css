@@ -1,0 +1,131 @@
+/* ===== DOCTORS ===== */
+.doctors {
+  padding: 96px 0;
+  background: var(--bg-light);
+}
+
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.doctor-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+}
+
+.doctor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.doctor-img-wrapper {
+  position: relative;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.doctor-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.5s ease;
+}
+
+.doctor-card:hover .doctor-img-wrapper img {
+  transform: scale(1.07);
+}
+
+.doctor-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(18,59,93,0.8) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20px;
+  gap: 14px;
+}
+
+.doctor-card:hover .doctor-overlay {
+  opacity: 1;
+}
+
+.social-icon-btn {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  color: white;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.social-icon-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: scale(1.15);
+}
+
+.doctor-info {
+  padding: 24px;
+  text-align: center;
+}
+
+.doctor-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin-bottom: 4px;
+}
+
+.doctor-role {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.doctor-exp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--light-blue);
+  color: var(--dark-blue);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 18px;
+}
+
+.doctor-info .btn-primary {
+  width: 100%;
+  justify-content: center;
+  padding: 11px 20px;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 900px) {
+  .doctors-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .doctors-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+  .doctors { padding: 72px 0; }
+}
