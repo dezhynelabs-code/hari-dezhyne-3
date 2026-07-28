@@ -15,6 +15,11 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
+# ── Serve compiled dist directory if web root is public_html ──────────────────
+RewriteCond %{REQUEST_URI} !^/dist/
+RewriteCond %{DOCUMENT_ROOT}/dist/index.html -f
+RewriteRule ^(.*)$ dist/$1 [L]
+
 # ── React SPA Fallback ───────────────────────────────────────────────────────
 # Only rewrite non-asset requests to index.html so missing assets don't return HTML and crash JS parsing
 RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|json)$ [NC]
