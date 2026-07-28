@@ -1,6 +1,5 @@
 name: 🚀 Deploy SmileCare to Hostinger
 
-# Trigger: push to main branch
 on:
   push:
     branches:
@@ -12,39 +11,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout source code
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Set up Node.js (match your local version)
-      - name: 🟢 Setup Node.js
+      - name: 🟢 Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # 3. Install dependencies
       - name: 📦 Install dependencies
         run: npm ci
 
-      # 4. Build the production bundle
       - name: 🔨 Build production bundle
         run: npm run build
         env:
           NODE_ENV: production
 
-      # 5. Deploy dist/ folder to Hostinger via FTP
-      #    Secrets are set in: GitHub repo → Settings → Secrets → Actions
-      - name: 📤 Deploy to Hostinger via FTP
+      # List dist contents so we can debug in the Actions log
+      - name: 🔍 Show dist contents
+        run: ls -la dist/ && cat dist/index.html
+
+      - name: 📤 Deploy dist/ to Hostinger public_html via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server:   ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server:    ${{ secrets.FTP_SERVER }}
+          username:  ${{ secrets.FTP_USERNAME }}
+          password:  ${{ secrets.FTP_PASSWORD }}
           local-dir:  ./dist/
-          server-dir: ./public_html/
-          # Only upload changed files (faster deploys)
-          dangerous-clean-slate: false
+          server-dir: /public_html/
+          # Wipe the remote folder first so stale files are removed
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
