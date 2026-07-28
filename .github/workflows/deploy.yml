@@ -11,28 +11,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🟢 Setup Node.js 20
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: 🔨 Build production bundle
+      - name: Build production bundle
         run: npm run build
         env:
           NODE_ENV: production
 
-      # List dist contents so we can debug in the Actions log
-      - name: 🔍 Show dist contents
-        run: ls -la dist/ && cat dist/index.html
+      - name: Show built files
+        run: ls -la dist/ && echo "--- index.html ---" && cat dist/index.html
 
-      - name: 📤 Deploy dist/ to Hostinger public_html via FTP
+      - name: Deploy dist/ to Hostinger public_html via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server:    ${{ secrets.FTP_SERVER }}
@@ -40,7 +39,6 @@ jobs:
           password:  ${{ secrets.FTP_PASSWORD }}
           local-dir:  ./dist/
           server-dir: /public_html/
-          # Wipe the remote folder first so stale files are removed
           dangerous-clean-slate: true
           exclude: |
             **/.git*

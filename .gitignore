@@ -3,8 +3,7 @@ node_modules/
 .pnp
 .pnp.js
 
-# ── Build output (Hostinger gets this via GitHub Actions) ─────
-dist/
+# ── Build output (committed so Hostinger Git deployment works) ─
 dist-ssr/
 
 # ── Local env files (NEVER commit secrets) ────────────────────
