@@ -7,19 +7,19 @@ import {
 import '../styles/Footer.css';
 
 const QUICK_LINKS = [
-  { label: 'Home',        href: '#home' },
-  { label: 'Treatments',  href: '#treatments' },
-  { label: 'Doctors',     href: '#doctors' },
-  { label: 'Appointment', href: '#appointment' },
-  { label: 'Contact',     href: '#contact' },
+  { label: 'Home',    page: 'home' },
+  { label: 'About',   page: 'about' },
+  { label: 'Service', page: 'service' },
+  { label: 'Teams',   page: 'teams' },
+  { label: 'Contact', page: 'contact' },
 ];
 
 const TREATMENT_LINKS = [
-  { label: 'Dental Implants',       href: '#treatments' },
-  { label: 'Teeth Cleaning',        href: '#treatments' },
-  { label: 'Teeth Whitening',       href: '#treatments' },
-  { label: 'Root Canal Treatment',  href: '#treatments' },
-  { label: 'Orthodontic Braces',    href: '#treatments' },
+  { label: 'Dental Implants',       page: 'service' },
+  { label: 'Teeth Cleaning',        page: 'service' },
+  { label: 'Teeth Whitening',       page: 'service' },
+  { label: 'Root Canal Treatment',  page: 'service' },
+  { label: 'Orthodontic Braces',    page: 'service' },
 ];
 
 const CONTACT_ITEMS = [
@@ -37,14 +37,16 @@ const SOCIAL_LINKS = [
   { icon: <FaYoutube />,    href: '#', label: 'YouTube' },
 ];
 
-const scrollToSection = (href) => {
-  const el = document.querySelector(href);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
-};
-
 const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-export default function Footer() {
+export default function Footer({ setCurrentPage }) {
+  const handleNav = (page) => {
+    if (setCurrentPage) {
+      setCurrentPage(page);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="footer" role="contentinfo">
       <div className="container">
@@ -54,7 +56,7 @@ export default function Footer() {
             <a
               href="#home"
               className="logo"
-              onClick={(e) => { e.preventDefault(); scrollToTop(); }}
+              onClick={(e) => { e.preventDefault(); handleNav('home'); }}
               aria-label="SmileCare Dental Clinic home"
             >
               <div className="logo-icon" aria-hidden="true" style={{ background: 'rgba(255,255,255,0.15)' }}>
@@ -93,8 +95,8 @@ export default function Footer() {
               {QUICK_LINKS.map((l) => (
                 <a
                   key={l.label}
-                  href={l.href}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(l.href); }}
+                  href={`#${l.page}`}
+                  onClick={(e) => { e.preventDefault(); handleNav(l.page); }}
                 >
                   {l.label}
                 </a>
@@ -109,8 +111,8 @@ export default function Footer() {
               {TREATMENT_LINKS.map((l) => (
                 <a
                   key={l.label}
-                  href={l.href}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(l.href); }}
+                  href={`#${l.page}`}
+                  onClick={(e) => { e.preventDefault(); handleNav(l.page); }}
                 >
                   {l.label}
                 </a>

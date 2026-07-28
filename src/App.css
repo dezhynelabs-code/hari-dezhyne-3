@@ -9,3 +9,63 @@
 .spin {
   animation: spin 0.8s linear infinite;
 }
+
+/* Subpage Header Banner */
+.subpage-header {
+  background: linear-gradient(135deg, var(--light-blue), #ffffff);
+  padding: 60px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(22, 119, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.subpage-header::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(22, 119, 255, 0.03);
+  pointer-events: none;
+}
+
+.subpage-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--dark-blue);
+  margin-bottom: 10px;
+}
+
+.subpage-breadcrumbs {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.subpage-breadcrumbs a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.subpage-breadcrumbs a:hover {
+  color: var(--primary-dark);
+}
+
+.subpage-breadcrumbs span {
+  opacity: 0.5;
+}
+
+.contact-page-wrapper {
+  background: var(--bg-light);
+  padding-bottom: 60px;
+}

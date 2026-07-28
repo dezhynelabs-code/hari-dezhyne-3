@@ -54,7 +54,7 @@ function StatItem({ icon, value, suffix, label, animate }) {
   );
 }
 
-export default function Hero() {
+export default function Hero({ setCurrentPage }) {
   const sectionRef  = useRef(null);
   const [statsGo, setStatsGo] = useState(false);
 
@@ -109,7 +109,7 @@ export default function Hero() {
             <div className="hero-buttons animate-fadeInUp delay-300">
               <button
                 className="hero-btn-primary"
-                onClick={() => scrollTo('appointment')}
+                onClick={() => setCurrentPage ? setCurrentPage('contact') : scrollTo('appointment')}
                 aria-label="Book an appointment"
               >
                 Book an Appointment
@@ -117,7 +117,7 @@ export default function Hero() {
               </button>
               <button
                 className="hero-btn-secondary"
-                onClick={() => scrollTo('treatments')}
+                onClick={() => setCurrentPage ? setCurrentPage('service') : scrollTo('treatments')}
                 aria-label="View dental treatments"
               >
                 <span className="play-circle" aria-hidden="true">
